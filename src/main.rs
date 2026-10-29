@@ -740,6 +740,14 @@ fn main() -> AppExit {
     let args: Vec<String> = std::env::args().collect();
     #[cfg(target_arch = "wasm32")]
     let args: Vec<String> = vec![];
+    if args.iter().any(|argument| argument == "--version") {
+        println!(
+            "naifrog-duel {} (protocol {})",
+            naifrog_duel::VERSION,
+            naifrog_duel::net::PROTOCOL_VERSION
+        );
+        return AppExit::Success;
+    }
     let smoke_path = args.iter().position(|a| a == "--smoke").map(|i| {
         args.get(i + 1)
             .filter(|p| !p.starts_with("--"))

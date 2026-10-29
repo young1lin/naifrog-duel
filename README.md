@@ -2,13 +2,32 @@
 
 Rust / Bevy 2D 双人格斗原型。三种模式：**单机打人机**、**本地同屏双人**、**私人联机**（浏览器 + 服务器权威）。这不是完整的《街霸》/《恐龙快打》复刻。
 
-[English](README.en.md) · [参与开发](CONTRIBUTING.md) · [许可证与素材](NOTICE.md) · [开源准备](docs/OPEN_SOURCE.md)
+[English](README.en.md) · [下载](https://github.com/young1lin/naifrog-duel/releases) · [Actions 构建](https://github.com/young1lin/naifrog-duel/actions/workflows/ci.yml) · [更新记录](CHANGELOG.md) · [参与开发](CONTRIBUTING.md)
 
 项目代码及维护者提供的 AI 生成美术在可许可权利范围内采用 [MIT](LICENSE)，字体等第三方内容保留各自许可。维护者说明原图由其使用 ChatGPT 生成、原始图集由助手生成；具体来源标签与哈希记录见 [素材说明](assets/README.md) 和 [NOTICE](NOTICE.md)。公开候选包含游戏实际使用的原始图片和处理后图集，保持原来的 2D 效果。
 
-生成一份包含运行素材、排除旧 Git 历史和私人工作文件的候选：`node scripts/public-source.mjs export --out artifacts/naifrog-duel-public-2026-10-29`。公开范围与隐私检查见开源准备文档。
-
 ![桌面版实际运行截图](docs/screenshots/game.png)
+
+## 下载与组件
+
+| 组件 | 下载包 | 内容与用途 |
+| --- | --- | --- |
+| Windows 客户端 | naifrog-desktop-v版本-windows-x86_64.zip | EXE、手柄/键盘、单机/同屏/桌面联机及原始 2D 运行素材 |
+| 浏览器客户端 | naifrog-web-v版本.zip | 已编译 WASM、网页、素材和 Node 离线调试服务器 |
+| Linux 服务端 | naifrog-server-v版本-linux-x86_64.tar.gz | x86_64 musl 权威服务端，内置同版本浏览器客户端与素材 |
+| Windows 服务端 | naifrog-server-v版本-windows-x86_64.zip | 独立服务端 EXE，内置同版本浏览器客户端与素材 |
+
+正式版本从 Releases 下载；还没有正式发布时，在 Actions → CI → Artifacts 下载开发包。开发包文件名附带 -dev.<提交号>，保留 7 天。仓库保持私有时，下载需要仓库访问权限。
+
+完整解压后启动 naifrog-duel.exe，**原生 EXE 支持手柄**；不要只复制 EXE，旁边的 assets 是必须的。下载包无需 Rust。浏览器包需要通过 HTTP 服务打开，不能直接双击 HTML；生产联机请使用已经内置网页的服务端包。每个下载包附中英文运行说明、文件/版本清单、许可证和 SHA256 校验。
+
+## 版本与自动发布
+
+Cargo.toml 的 package.version 是基础版本，Cargo.lock、CHANGELOG.md 和 v 版本标签必须一致。程序支持 --version；多人协议 PROTOCOL_VERSION 独立管理。
+
+Actions 会实际编译 Windows 游戏 EXE、浏览器 WASM，以及 Linux/Windows 服务端，打包、校验后提供四个可下载产物。推送匹配版本标签后，Release 工作流在全部检查通过后创建**草稿 Release**，由维护者检查后手动发布。
+
+使用 node scripts/version.mjs bump patch/minor/major 推进版本，补充更新记录并刷新发布清单后再提交、打标签。完整命令和兼容策略见 [发版说明](docs/RELEASING.md)。
 
 ## 运行（Windows 桌面）
 

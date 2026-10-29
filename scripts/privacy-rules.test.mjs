@@ -21,6 +21,10 @@ test('loopback commands and example hosts are safe documentation',()=>{
 test('empty and short files are safe to scan',()=>{
  for(const value of ['','a','ab','abc'])assert.deepEqual(scan(value),[]);
 });
+test('binary path checks ignore short instruction-like prefixes but catch user directories',()=>{
+ assert.deepEqual(findPrivacyIssues('client.exe',Buffer.from([87,58,47])),[]);
+ assert.ok(findPrivacyIssues('client.exe',Buffer.from(localPath)).some(x=>x.rule==='absolute-windows-path'));
+});
 test('font metadata is checked without interpreting glyph bytes as text',()=>{
  const name=Buffer.from(localPath,'utf16le');name.swap16();
  const metadata=Buffer.alloc(18);metadata.writeUInt16BE(1,2);metadata.writeUInt16BE(18,4);metadata.writeUInt16BE(3,6);metadata.writeUInt16BE(name.length,14);

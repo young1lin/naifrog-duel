@@ -16,7 +16,7 @@ async function exists(file){try{await fs.lstat(file);return true;}catch(error){i
 
 function privatePath(name,includeArt=false){
  const parts=name.split('/'),base=parts.at(-1);
- return ['archive','artifacts','target','node_modules','.agents','.claude','.superpowers','review','blender'].includes(parts[0])
+ return ['archive','artifacts','target','dist','node_modules','.agents','.claude','.superpowers','review','blender'].includes(parts[0])
   || name==='AGENTS.md'||name==='CLAUDE.md'
   || (!includeArt&&(name.startsWith('assets/original/')||name==='assets/original'))
   || (!includeArt&&/^assets\/processed\/(?:fighter_.*|portrait\.webp|stage_garden\.webp|fx_hit\.webp)$/.test(name))
@@ -141,7 +141,7 @@ async function exportSource(destination){
  const relation=path.relative(destination,ROOT);
  if(destination===ROOT||(!relation.startsWith('..'+path.sep)&&relation!=='..'&&!path.isAbsolute(relation)))throw new Error('Output cannot contain or replace the working project.');
  const {policy,allowed}=await policyAt(ROOT);
- for(const directory of ['src','scripts','deploy','.github','web','assets','docs']){
+ for(const directory of ['src','scripts','deploy','.github','web','assets','docs','packaging']){
   const input=path.join(ROOT,directory);
   if(destination===input||destination.startsWith(input+path.sep))throw new Error('Output must be outside source/input directories.');
  }
@@ -166,9 +166,25 @@ async function exportSource(destination){
  return {...result,output:destination,bytes:record.files.reduce((sum,file)=>sum+file.bytes,0)};
 }
 
+async function refreshManifest(root){
+ const {policy,allowed}=await policyAt(root),selected=await selectedFiles(root,policy,allowed);
+ const record={schema_version:1,asset_policy:policy.asset_policy,files:[]};
+ for(const name of selected){
+  const bytes=await fs.readFile(path.join(root,name));
+  if(findPrivacyIssues(name,bytes).length)throw new Error('Privacy check failed in '+name+' (value withheld)');
+  record.files.push({path:name,bytes:bytes.length,sha256:sha(bytes)});
+ }
+ await fs.writeFile(path.join(root,MANIFEST),JSON.stringify(record,null,2)+'\n');
+ return {manifest:MANIFEST,files:selected.length+1};
+}
+
 try{
  const {values,positionals}=parseArgs({allowPositionals:true,options:{out:{type:'string'},root:{type:'string'},'verify-manifest':{type:'boolean',default:false}}});
- if(positionals.length!==1||!['export','check'].includes(positionals[0]))throw new Error('Usage: node scripts/public-source.mjs export --out NEW_DIRECTORY | check [--root DIRECTORY] [--verify-manifest]');
+ if(positionals.length!==1||!['export','check','manifest'].includes(positionals[0]))throw new Error('Usage: public-source.mjs export --out NEW_DIRECTORY | check [--root DIRECTORY] [--verify-manifest] | manifest');
+ if(positionals[0]==='manifest'){
+  if(values.out||values['verify-manifest'])throw new Error('Manifest does not accept export/check options.');
+  console.log(JSON.stringify(await refreshManifest(path.resolve(values.root??ROOT)),null,2));
+ }else
  if(positionals[0]==='export'){
   if(!values.out||values.root||values['verify-manifest'])throw new Error('Export requires --out and accepts no other options.');
   console.log(JSON.stringify(await exportSource(path.resolve(values.out)),null,2));

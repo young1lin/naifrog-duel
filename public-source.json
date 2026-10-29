@@ -16,12 +16,15 @@
     "NOTICE.md",
     "README.md",
     "README.en.md",
+    "CHANGELOG.md",
     "CONTRIBUTING.md",
     "SECURITY.md",
     "TESTING.md",
     "DEPLOY.md",
     "Dockerfile",
     "docs/OPEN_SOURCE.md",
+    "docs/RELEASING.md",
+    "docs/RELEASING.en.md",
     "web/index.html",
     "web/main.js",
     "web/network.js",
@@ -68,7 +71,8 @@
     "src",
     "scripts",
     "deploy",
-    ".github"
+    ".github",
+    "packaging"
   ],
   "exclude": [
     "scripts/prepare-fight-sprites.mjs"

@@ -2,6 +2,9 @@
 //! `net` adds the wire protocol; `server` adds the authoritative renderer-free server.
 //! `client` adds desktop networking. The default `game` feature builds the Bevy frontend.
 
+/// Application release version, independent of the multiplayer protocol version.
+pub const VERSION: &str = env!("CARGO_PKG_VERSION");
+
 pub mod ai;
 #[cfg(all(feature = "client", not(target_arch = "wasm32")))]
 pub mod client;

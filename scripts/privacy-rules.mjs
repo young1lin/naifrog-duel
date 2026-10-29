@@ -13,7 +13,10 @@ const rules=[
 function scanText(file,text,context){
  const findings=[];
  for(const [index,line] of text.split(/\r?\n/).entries()){
-  for(const [rule,pattern] of rules)if(pattern.test(line))findings.push({file,rule,line:index+1,...(context?{context}:{})});
+  for(const [rule,pattern] of rules){
+   const check=context==='binary'&&rule==='absolute-windows-path'?/\b[A-Za-z]:[\\/](?:Users[\\/]|[A-Za-z0-9_. -]{2,}[\\/][A-Za-z0-9_. -]{2,})/:pattern;
+   if(check.test(line))findings.push({file,rule,line:index+1,...(context?{context}:{})});
+  }
  }
  return findings;
 }
@@ -96,6 +99,6 @@ export function findPrivacyIssues(file,bytes){
     }
    }
   }catch{findings.push({file,rule:'unreadable-font-metadata'});}
- }else scan(bytes);
+ }else scan(bytes,/\.(?:exe|dll|wasm)$/i.test(file)?'binary':undefined);
  return [...new Map(findings.map(item=>[JSON.stringify(item),item])).values()];
 }

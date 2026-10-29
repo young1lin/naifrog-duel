@@ -7,8 +7,9 @@ npm ci
 cargo fmt --all --check
 cargo test --locked --no-default-features --features "server client" --lib
 cargo clippy --locked --no-default-features --features "server client" --all-targets -- -D warnings
-node --test scripts/server.test.mjs scripts/network.test.mjs scripts/privacy-rules.test.mjs scripts/public-source.test.mjs
+node --test scripts/server.test.mjs scripts/network.test.mjs scripts/privacy-rules.test.mjs scripts/public-source.test.mjs scripts/version.test.mjs scripts/package-release.test.mjs
 .\scripts\cargo-private.test.ps1
+node scripts/version.mjs check
 ```
 
 这些逻辑、协议、客户端和 HTTP 测试不依赖角色图像的具体内容。桌面编译检查用 `cargo check --locked --all-targets`；浏览器检查先 `rustup target add wasm32-unknown-unknown`，再运行 `cargo check --locked --target wasm32-unknown-unknown --bin naifrog-duel`。项目已包含 2D 素材，应同时运行 `node scripts/check-assets.mjs`；改美术时更新来源记录，并进行实际游玩/浏览器验收。
@@ -19,3 +20,5 @@ node --test scripts/server.test.mjs scripts/network.test.mjs scripts/privacy-rul
 - 不提交服务口令、Cookie、恢复 token、真实 `.env`、构建目录、代理工作文件或授权不明确的图片/截图。新增素材必须附来源、许可与署名要求。
 
 提交普通缺陷时提供系统、版本、模式、复现步骤及最小日志。安全漏洞请按 [SECURITY.md](SECURITY.md) 私下报告。
+
+新增公开文件时更新 public-source.json；提交前运行 node scripts/public-source.mjs manifest 刷新清单，并将清单一并提交。CI 既校验清单，也会实际构建四个可下载包。版本、标签、变更记录和草稿 Release 的操作见 [发版说明](docs/RELEASING.md)。
