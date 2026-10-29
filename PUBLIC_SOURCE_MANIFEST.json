@@ -474,8 +474,8 @@
     },
     {
       "path": "scripts/package-smoke.mjs",
-      "bytes": 3138,
-      "sha256": "1402996db71b1261a8c3e1fadc961e649133ae1eb927d4bc82b7822bf9c3c523"
+      "bytes": 3573,
+      "sha256": "2c5d9d05c27ea1663bfda57c89b3640b8566044ba6479504e9b7d4a4bafc4021"
     },
     {
       "path": "scripts/prepare-game-assets.mjs",

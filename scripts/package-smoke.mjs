@@ -26,9 +26,15 @@ try{
    try{await fetch(origin+'/api/config',{signal:AbortSignal.timeout(500)});ready=true;break;}catch{await new Promise(resolve=>setTimeout(resolve,100));}
   }
   if(!ready)throw new Error('Packaged server did not become ready.');
-  assert.equal((await fetch(origin+'/')).status,401);
+  // The login page is public; the game runtime and manifest require a session.
+  assert.equal((await fetch(origin+'/')).status,200);
+  assert.equal((await (await fetch(origin+'/api/config')).json()).authenticated,false);
+  for(const name of ['/pkg/naifrog_duel_bg.wasm','/assets/processed/game-assets.json','/api/manifest']){
+   assert.equal((await fetch(origin+name)).status,401,name);
+  }
   const login=await fetch(origin+'/api/auth',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({access_key:key})});
   assert.equal(login.status,200);const cookie=login.headers.get('set-cookie');assert.ok(cookie?.includes('HttpOnly'));headers={Cookie:cookie.split(';')[0]};
+  assert.equal((await (await fetch(origin+'/api/config',{headers})).json()).authenticated,true);
  }else throw new Error('Use the native --version check for desktop packages.');
  const page=await fetch(origin+'/',{headers});assert.equal(page.status,200);assert.match(await page.text(),/main\.js/);
  const wasm=await fetch(origin+'/pkg/naifrog_duel_bg.wasm',{headers});assert.equal(wasm.status,200);assert.ok(isWasm(await wasm.arrayBuffer()));
