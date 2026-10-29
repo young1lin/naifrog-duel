@@ -49,8 +49,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 981,
-      "sha256": "9c9724ea0bbcc7ebb8a9dff9aeab975cf8a6d7bdb928fb7f140a7c89a508352b"
+      "bytes": 1700,
+      "sha256": "c69522f64c6a871a2569e0db6334cf9d83a22bc8db6330add8890fa08f1dfbe6"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -60,12 +60,12 @@
     {
       "path": "Cargo.lock",
       "bytes": 147298,
-      "sha256": "e63c0553af42c98ce28bc450aa05369d986af12f3c9c9db4a1c170b0751443fb"
+      "sha256": "3e636c68d37a5b3b4478fd8e986b42170831fa1b4cdfd45992b09521a83bef7d"
     },
     {
       "path": "Cargo.toml",
       "bytes": 3610,
-      "sha256": "6a62ecfb442f8cf5983394d12bf96a7d22338373e15d18578c2b756a47946e88"
+      "sha256": "a0cce10f6fd9bf4130698534becb8427af584b79a9fdb987c0754fa78c0f130c"
     },
     {
       "path": "DEPLOY.md",
@@ -344,13 +344,13 @@
     },
     {
       "path": "docs/RELEASING.en.md",
-      "bytes": 3486,
-      "sha256": "df057c87f4db4467545d5e29f3abf8cea7d4ecd14acc01eb72ef580460a717e6"
+      "bytes": 3569,
+      "sha256": "8dd5915e765f54f0d709a8a1263d93160b9def26833042b97892c559e709feb7"
     },
     {
       "path": "docs/RELEASING.md",
-      "bytes": 3510,
-      "sha256": "4172120f71c6193e56babe069e26150cdd5884b1dd7212c5f876380787ac8477"
+      "bytes": 3587,
+      "sha256": "64ef05a9e6730238e3ae42f4a3b5263ce0894e95c2093a6069658b836affd6a4"
     },
     {
       "path": "docs/screenshots/game.png",
@@ -499,13 +499,13 @@
     },
     {
       "path": "scripts/public-source.mjs",
-      "bytes": 12078,
-      "sha256": "0048c1291a4d4aa40d6d45a307a902b3268f765536c961b2a7167328e2dfdde8"
+      "bytes": 12591,
+      "sha256": "db83f4a228925750020815b181d55f46fae8af0f914e83e18fab27faf29569a1"
     },
     {
       "path": "scripts/public-source.test.mjs",
-      "bytes": 2621,
-      "sha256": "de9a23e1b3c31952c1be1b2c8ead620433d6927cd13cee5ea0c2c29b89388a67"
+      "bytes": 3286,
+      "sha256": "9cdeac723c5b9c1921a872bd29e0b5cb00478b548008a520b75a6164f5ace8a4"
     },
     {
       "path": "scripts/run-game.ps1",

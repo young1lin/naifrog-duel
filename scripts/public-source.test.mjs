@@ -35,3 +35,12 @@ test('public checks reject synthetic credentials without printing their value',(
  const token=['gh','p_','A'.repeat(36)].join('');await fs.writeFile(path.join(root,'README.md'),token);
  const result=check();assert.equal(result.status,1);assert.match(result.stderr,/github-token/);assert.ok(!(result.stdout+result.stderr).includes(token));
 }));
+
+test('annotated release tags are not paths and cannot hide a private file with the same name',()=>fixture(async({root,git,check})=>{
+ git(['-c','tag.gpgSign=false','tag','-a','v0.1.0','-m','Release fixture']);git(['tag','release-lightweight']);
+ assert.equal(check().status,0);
+ await fs.writeFile(path.join(root,'v0.1.0'),'Private fixture');
+ git(['add','v0.1.0']);git(['commit','--quiet','-m','Private tag-named fixture']);
+ git(['rm','--quiet','v0.1.0']);git(['commit','--quiet','-m','Remove tag-named fixture']);
+ const result=check();assert.equal(result.status,1);assert.match(result.stderr,/Non-public path remains in reachable Git history: v0\.1\.0/);
+}));

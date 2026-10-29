@@ -22,7 +22,7 @@
 
 ## 版本号如何演进
 
-Cargo.toml 的 package.version 是唯一基础版本；Cargo.lock 中本项目条目必须一致，CHANGELOG.md 必须有对应条目。首个版本为 v0.1.0。
+Cargo.toml 的 package.version 是唯一基础版本；Cargo.lock 中本项目条目必须一致，CHANGELOG.md 必须有对应条目。初始标签为 v0.1.0；其发布检查发现问题后，使用 v0.1.1 修复，不改写旧标签。
 
 - patch：兼容的修复，例如 0.1.0 → 0.1.1。
 - minor：新功能；1.0 前不兼容变更也提升 minor，例如 0.1.1 → 0.2.0。

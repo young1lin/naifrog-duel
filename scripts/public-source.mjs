@@ -92,7 +92,7 @@ async function selectedFiles(root,policy,allowed){
  return [...selected].sort();
 }
 
-function git(root,args){return execFileSync('git',['-C',root,...args],{encoding:'utf8',maxBuffer:32*1024*1024});}
+function git(root,args,input){return execFileSync('git',['-C',root,...args],{encoding:'utf8',maxBuffer:32*1024*1024,input});}
 
 async function check(root,verifyManifest=false){
  const {policy,allowed,includeArt}=await policyAt(root);
@@ -109,7 +109,12 @@ async function check(root,verifyManifest=false){
   for(const finding of findPrivacyIssues(name,bytes))failures.push(finding.rule+' in '+name+(finding.line?':'+finding.line:'')+' (value withheld)');
  }
  if(hasGit){
-  const historicalPaths=git(root,['rev-list','--objects','--all']).split('\n').flatMap(line=>{
+  const objects=git(root,['rev-list','--objects','--all']).split('\n').filter(Boolean);
+  const types=git(root,['cat-file','--batch-check=%(objecttype)'],objects.map(line=>line.split(' ',1)[0]).join('\n')+'\n').trimEnd().split('\n');
+  if(types.length!==objects.length||types.some(type=>!['commit','tag','tree','blob'].includes(type)))throw new Error('Cannot verify reachable Git object types.');
+  const historicalPaths=objects.flatMap((line,index)=>{
+   // Annotated tags also have names in rev-list output, but are not file paths.
+   if(types[index]!=='tree'&&types[index]!=='blob')return [];
    const space=line.indexOf(' ');return space<0||space===line.length-1?[]:[line.slice(space+1)];
   });
   for(const name of new Set(historicalPaths)){

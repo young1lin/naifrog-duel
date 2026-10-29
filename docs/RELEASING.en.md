@@ -22,7 +22,7 @@ Packaged web/server smoke checks exercise real WASM delivery, pages and server a
 
 ## Version policy
 
-Cargo.toml package.version is authoritative; the project's Cargo.lock entry must match and CHANGELOG.md must contain its release notes. The first version is v0.1.0.
+Cargo.toml package.version is authoritative; the project's Cargo.lock entry must match and CHANGELOG.md must contain its release notes. The initial tag is v0.1.0; after its release check found a problem, v0.1.1 fixes it without rewriting that tag.
 
 - patch: compatible fixes, for example 0.1.0 → 0.1.1.
 - minor: features; before 1.0, also use this for incompatible changes.
