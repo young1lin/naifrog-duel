@@ -3,6 +3,7 @@ import test from 'node:test';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
+import {gzipSync} from 'node:zlib';
 import {unzipSync} from 'fflate';
 import {packageRelease,verifyBundle} from './package-release.mjs';
 async function fixture(run){
@@ -15,6 +16,8 @@ async function fixture(run){
   for(const file of ['LICENSE','NOTICE.md','assets/UNICODE-LICENSE.txt','assets/ART_PROVENANCE.json','assets/README.md','assets/processed/runtime.webp'])await put(file,'Public fixture');
   for(const kind of ['web','desktop','server'])for(const lang of ['zh','en'])await put('packaging/README.'+kind+'.'+lang+'.md','Version {{VERSION}}');
   for(const file of ['web/index.html','web/main.js','web/network.js','web/style.css','web/pkg/naifrog_duel.js','web/pkg/naifrog_duel_bg.wasm','web/pkg/naifrog_duel_bg.wasm.gz','scripts/serve-web.mjs','packaging/start-server.ps1','DEPLOY.md'])await put(file,'Public fixture');
+  const wasm=Buffer.from([0,97,115,109,1,0,0,0]);
+  await put('web/pkg/naifrog_duel_bg.wasm',wasm);await put('web/pkg/naifrog_duel_bg.wasm.gz',gzipSync(wasm));
   await put('target/x86_64-pc-windows-msvc/release/naifrog-duel.exe','Desktop fixture');
   await put('target/x86_64-pc-windows-msvc/release/naifrog-server.exe','Server fixture');
   await put('assets/original/private-draft.png','Never package this');
@@ -35,7 +38,7 @@ test('desktop archives contain runtime art, two languages and licenses, but no o
 test('complete server bundles require web files from the same version and commit',()=>fixture(async({root,commit})=>{
  const web=await packageRelease({root,kind:'web',version:'0.1.0',commit});
  const server=await packageRelease({root,kind:'server',target:'x86_64-pc-windows-msvc',version:'0.1.0',commit,webArchive:web.archive,out:path.join(root,'server'),archive:false});
- assert.equal(await fs.readFile(path.join(server.folder,'web/pkg/naifrog_duel_bg.wasm'),'utf8'),'Public fixture');
+ assert.ok((await fs.readFile(path.join(server.folder,'web/pkg/naifrog_duel_bg.wasm'))).equals(Buffer.from([0,97,115,109,1,0,0,0])));
  await assert.rejects(packageRelease({root,kind:'server',target:'x86_64-pc-windows-msvc',version:'0.1.0',commit:'b'.repeat(40),webArchive:web.archive,out:path.join(root,'wrong'),archive:false}),/version\/commit differ/);
  await fs.appendFile(web.archive,'tamper');
  await assert.rejects(packageRelease({root,kind:'server',target:'x86_64-pc-windows-msvc',version:'0.1.0',commit,webArchive:web.archive,out:path.join(root,'tamper'),archive:false}),/checksum mismatch/);

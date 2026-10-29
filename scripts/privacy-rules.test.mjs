@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {deflateSync} from 'node:zlib';
+import {deflateSync,gzipSync} from 'node:zlib';
 import {findPrivacyIssues} from './privacy-rules.mjs';
 
 const token=['gh','p_','A'.repeat(36)].join('');
@@ -24,6 +24,14 @@ test('empty and short files are safe to scan',()=>{
 test('binary path checks ignore short instruction-like prefixes but catch user directories',()=>{
  assert.deepEqual(findPrivacyIssues('client.exe',Buffer.from([87,58,47])),[]);
  assert.ok(findPrivacyIssues('client.exe',Buffer.from(localPath)).some(x=>x.rule==='absolute-windows-path'));
+});
+test('compressed WASM and extensionless ELF are scanned as executable data',()=>{
+ const code=Buffer.from([0,97,115,109,0,87,58,47,0]);
+ assert.deepEqual(findPrivacyIssues('client.wasm.gz',gzipSync(code,{level:0})),[]);
+ assert.deepEqual(findPrivacyIssues('server',Buffer.from([127,69,76,70,0,87,58,47,0])),[]);
+ const findings=findPrivacyIssues('client.wasm.gz',gzipSync(Buffer.concat([code,Buffer.from(localPath)])));
+ assert.ok(findings.some(x=>x.rule==='absolute-windows-path'&&x.file==='client.wasm.gz'));
+ assert.equal(findPrivacyIssues('bad.wasm.gz',Buffer.from('bad'))[0].rule,'unreadable-compressed-artifact');
 });
 test('font metadata is checked without interpreting glyph bytes as text',()=>{
  const name=Buffer.from(localPath,'utf16le');name.swap16();

@@ -29,13 +29,13 @@
     },
     {
       "path": ".github/workflows/build.yml",
-      "bytes": 7041,
-      "sha256": "87b0ecada88b259bd857385a2b0a79044017a1c70b15bf51ef04eb07b36015c3"
+      "bytes": 9144,
+      "sha256": "93d18261000ad0d7c06c544249a29b4161642155f597743febfb96b0346e4675"
     },
     {
       "path": ".github/workflows/ci.yml",
-      "bytes": 2282,
-      "sha256": "856b25986193acc285b4e6e637e067647fefd8b556cb00c54fdb9bfab0642231"
+      "bytes": 2283,
+      "sha256": "f39d215c051f415e628595e5718113e470f6714d33b88c3a24f9ce4bafa5539b"
     },
     {
       "path": ".github/workflows/release.yml",
@@ -344,13 +344,13 @@
     },
     {
       "path": "docs/RELEASING.en.md",
-      "bytes": 3256,
-      "sha256": "68c945035494f25404c92ca5975ab92778d305d063246890a4fe1f11aaaa5a4e"
+      "bytes": 3486,
+      "sha256": "df057c87f4db4467545d5e29f3abf8cea7d4ecd14acc01eb72ef580460a717e6"
     },
     {
       "path": "docs/RELEASING.md",
-      "bytes": 3306,
-      "sha256": "8cdc1ffaf84798bd08695729a622c0b36d33a8c1d25b8507544fa0bc74e999ce"
+      "bytes": 3510,
+      "sha256": "4172120f71c6193e56babe069e26150cdd5884b1dd7212c5f876380787ac8477"
     },
     {
       "path": "docs/screenshots/game.png",
@@ -469,8 +469,8 @@
     },
     {
       "path": "scripts/package-release.test.mjs",
-      "bytes": 4050,
-      "sha256": "96617916eda4f60631ab7a4567f6f1b6752cd9bfef47f97c7cdff685e684d090"
+      "bytes": 4265,
+      "sha256": "6efd987d30f5d0124be079300ffcd00eeac9b1ebaec548cc81a678b4fccfa312"
     },
     {
       "path": "scripts/package-smoke.mjs",
@@ -489,13 +489,13 @@
     },
     {
       "path": "scripts/privacy-rules.mjs",
-      "bytes": 5345,
-      "sha256": "48d2381a516c26b12f410ec8ae311e0c300cc79348280d73539305a2c16bf992"
+      "bytes": 5815,
+      "sha256": "2d674db456feda51492a6431b7311136bcd6c9f27577b246877deabdb2ecd23c"
     },
     {
       "path": "scripts/privacy-rules.test.mjs",
-      "bytes": 3978,
-      "sha256": "5f101abd1ca78ddf62b3f8e4952c5d608fa96af16551250c7fa3fa2401e52ee3"
+      "bytes": 4611,
+      "sha256": "e591e201d9d72c796a843cb083f7d24780ce22b2749ca5543a93719a25bc4d29"
     },
     {
       "path": "scripts/public-source.mjs",

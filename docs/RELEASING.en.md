@@ -14,6 +14,8 @@ Each archive has a SHA256 file and an internal release-manifest.json with the ap
 
 Branch pushes, PRs and manual CI run checks followed by actual release compilation. Download development archives from Actions → CI → Artifacts. Names include -dev.<commit>; --version reports the Cargo base version, and the manifest records the exact commit. CI artifacts expire after 7 days.
 
+Build packages also supports manual all/web/desktop/server selection. Server builds include the matching web build. Compilation caches are saved before packaging, so a packaging failure does not discard a successful compilation.
+
 A v-prefixed version tag triggers the Release workflow. It repeats checks/builds and creates a draft Release only after all four packages succeed. It never changes repository visibility or automatically publishes the draft.
 
 Packaged web/server smoke checks exercise real WASM delivery, pages and server authentication. The Windows EXE runs --version to verify linking and version metadata. CI cannot validate a physical controller or a real cross-device match.

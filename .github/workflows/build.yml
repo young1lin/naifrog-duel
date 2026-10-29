@@ -1,5 +1,16 @@
 name: Build packages
 on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or commit to build
+        type: string
+        default: main
+      component:
+        description: Package to build
+        type: choice
+        options: [all, web, desktop, server]
+        default: all
   workflow_call:
     inputs:
       ref:
@@ -8,6 +19,9 @@ on:
       release_tag:
         type: string
         default: ''
+      component:
+        type: string
+        default: all
 permissions:
   contents: read
 jobs:
@@ -21,6 +35,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ inputs.ref }}
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -30,8 +45,10 @@ jobs:
         env:
           RELEASE_TAG: ${{ inputs.release_tag }}
         run: node scripts/version.mjs metadata
+      - run: node scripts/public-source.mjs check --verify-manifest
 
   web:
+    if: inputs.component != 'desktop'
     needs: metadata
     runs-on: ubuntu-24.04
     timeout-minutes: 60
@@ -46,7 +63,8 @@ jobs:
         with:
           node-version: '22'
           package-manager-cache: false
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      - id: cargo-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             ~/.cargo/registry
@@ -54,10 +72,22 @@ jobs:
             ~/.cargo/bin/wasm-bindgen*
             target
           key: build-web-${{ runner.os }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml') }}
+          restore-keys: build-web-${{ runner.os }}-
       - run: npm ci
       - run: node scripts/check-assets.mjs
       - run: ./scripts/build-web.ps1 -Release
         shell: pwsh
+      - name: Preserve successful compilation before packaging
+        if: steps.cargo-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/bin/wasm-bindgen*
+            target
+          key: ${{ steps.cargo-cache.outputs.cache-primary-key }}
       - run: node scripts/package-release.mjs --kind web
       - name: Serve packaged browser client
         shell: pwsh
@@ -73,6 +103,7 @@ jobs:
           compression-level: 0
 
   windows-desktop:
+    if: inputs.component == 'all' || inputs.component == 'desktop'
     needs: metadata
     runs-on: windows-latest
     timeout-minutes: 60
@@ -87,18 +118,30 @@ jobs:
         with:
           node-version: '22'
           package-manager-cache: false
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      - id: cargo-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
             target
           key: build-desktop-${{ runner.os }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml') }}
+          restore-keys: build-desktop-${{ runner.os }}-
       - run: npm ci
       - run: node scripts/check-assets.mjs
       - name: Compile game with native gamepad and online features
         shell: pwsh
         run: ./scripts/cargo-private.ps1 -CargoArgs @('build','--locked','--release','--target','x86_64-pc-windows-msvc','--bin','naifrog-duel')
+      - name: Preserve successful compilation before packaging
+        if: steps.cargo-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ steps.cargo-cache.outputs.cache-primary-key }}
       - name: Check linked executable version without opening a window
         run: ./target/x86_64-pc-windows-msvc/release/naifrog-duel.exe --version
       - run: node scripts/package-release.mjs --kind desktop --target x86_64-pc-windows-msvc
@@ -113,6 +156,7 @@ jobs:
           compression-level: 0
 
   server:
+    if: inputs.component == 'all' || inputs.component == 'server'
     needs: [metadata, web]
     strategy:
       fail-fast: false
@@ -142,13 +186,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y musl-tools
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      - id: cargo-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
             target
           key: build-server-${{ matrix.target }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml') }}
+          restore-keys: build-server-${{ matrix.target }}-
       - run: npm ci
       - name: Compile renderer-free authoritative server
         shell: pwsh
@@ -156,6 +202,16 @@ jobs:
           rustup target add $env:BUILD_TARGET
           if ($LASTEXITCODE -ne 0) { throw 'Target installation failed' }
           ./scripts/cargo-private.ps1 -CargoArgs @('build','--locked','--release','--no-default-features','--features','server','--target',$env:BUILD_TARGET,'--bin','naifrog-server')
+      - name: Preserve successful compilation before packaging
+        if: steps.cargo-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ steps.cargo-cache.outputs.cache-primary-key }}
       - name: Check server version
         shell: pwsh
         run: |

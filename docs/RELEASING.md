@@ -14,6 +14,8 @@
 
 每次分支 push、PR 和手动 CI 都先运行检查，再进行真正的 release 编译。Actions → CI → Artifacts 可下载开发包；文件名附带 -dev.<提交号>。程序 --version 显示 Cargo 基础版本，完整提交见包内清单。Artifacts 保留 7 天。
 
+也可以手动运行 Build packages，选择 all、web、desktop 或 server；server 会自动先构建匹配的 Web 包。成功编译的缓存先于打包保存，打包失败不必再次冷编译。
+
 版本标签会触发 Release 工作流，重跑检查并构建四个平台包，全部成功后创建草稿 Release。仓库可见性不改变，也不会自动点“Publish release”。
 
 服务端与浏览器包启动后会自动验证页面、鉴权及真实 WASM 的 HTTP 交付；Windows EXE 用 --version 验证链接和版本。CI 没有实体手柄，不能代替真手柄或真实跨设备联机验收。

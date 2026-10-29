@@ -1,5 +1,5 @@
 // Values are never returned: findings contain only a rule, file and line.
-import {inflateSync} from 'node:zlib';
+import {inflateSync,gunzipSync} from 'node:zlib';
 
 const rules=[
  ['private-key',/-{5}BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-{5}/],
@@ -24,6 +24,10 @@ function scanText(file,text,context){
 // Scan metadata, not compressed pixels. Original art bytes are never changed.
 export function findPrivacyIssues(file,bytes){
  if(!Buffer.isBuffer(bytes))bytes=Buffer.from(bytes);
+ if(/\.gz$/i.test(file)){
+  try{return findPrivacyIssues(file.slice(0,-3),gunzipSync(bytes,{maxOutputLength:256*1024*1024})).map(item=>({...item,file,context:'gzip'+(item.context?' '+item.context:'')}));}
+  catch{return [{file,rule:'unreadable-compressed-artifact'}];}
+ }
  const findings=[];
  const scan=(data,context)=>{
   findings.push(...scanText(file,data.toString('utf8'),context));
@@ -99,6 +103,9 @@ export function findPrivacyIssues(file,bytes){
     }
    }
   }catch{findings.push({file,rule:'unreadable-font-metadata'});}
- }else scan(bytes,/\.(?:exe|dll|wasm)$/i.test(file)?'binary':undefined);
+ }else{
+  const executable=/\.(?:exe|dll|wasm)$/i.test(file)||bytes.subarray(0,4).equals(Buffer.from([127,69,76,70]))||bytes.subarray(0,4).equals(Buffer.from([0,97,115,109]))||bytes.toString('ascii',0,2)==='MZ';
+  scan(bytes,executable?'binary':undefined);
+ }
  return [...new Map(findings.map(item=>[JSON.stringify(item),item])).values()];
 }
