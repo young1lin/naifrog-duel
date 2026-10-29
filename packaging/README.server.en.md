@@ -4,6 +4,8 @@
 
 Includes the server executable, the browser client built from the same commit, and the original 2D runtime artwork. No separate web download is needed. Linux uses x86_64 musl; Windows uses x86_64 MSVC.
 
+Windows x64 requires the Microsoft Visual C++ v14 runtime. If VCRUNTIME140.dll is missing, install the [official x64 Redistributable](https://aka.ms/vc14/vc_redist.x64.exe); see [supported versions and systems](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist/). The Linux musl package does not need it.
+
 The launchers bind to 127.0.0.1:18080 by default. Set a private access key of at least 32 bytes first. No fixed key is generated or saved.
 
 Windows PowerShell:

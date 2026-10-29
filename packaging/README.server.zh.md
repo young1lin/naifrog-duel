@@ -4,6 +4,8 @@
 
 本包包含服务端程序、同一提交构建的浏览器客户端及原始 2D 运行素材。无需再下载浏览器包。Linux 包使用 x86_64 musl 目标，Windows 包使用 x86_64 MSVC 目标。
 
+Windows x64 需要 Microsoft Visual C++ v14 运行库。若缺少 VCRUNTIME140.dll，请安装 [微软官方 x64 运行库](https://aka.ms/vc14/vc_redist.x64.exe)；[版本与系统要求](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist/)。Linux musl 包不需要此运行库。
+
 启动脚本默认仅监听本机 127.0.0.1:18080。先设置至少 32 字节的私密访问口令，脚本不生成或保存固定口令。
 
 Windows PowerShell：

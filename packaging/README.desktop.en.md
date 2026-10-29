@@ -4,6 +4,8 @@
 
 Extract the entire archive and run naifrog-duel.exe. Keep the assets directory beside it: it contains the original 2D animation, background and fonts. No Rust or Node.js installation is required.
 
+Windows x64 requires the Microsoft Visual C++ v14 runtime. If VCRUNTIME140.dll is missing, install the [official x64 Redistributable](https://aka.ms/vc14/vc_redist.x64.exe) and retry; see [supported versions and systems](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist/).
+
 - CPU mode: both keyboard layouts and any connected gamepad control your fighter.
 - Local two-player: P1 uses A/D/W/S + F/G/H/T or controller 1; P2 uses arrows + J/K/L/I or controller 2.
 - Gamepad: stick/D-pad move, A jump, X light, Y heavy, B dash, RB bubble, LB/LT/RT guard. Start restarts; Select pauses/resumes.

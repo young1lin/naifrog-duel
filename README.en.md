@@ -23,6 +23,8 @@ Extract the whole archive. Do not copy only the EXE or open web/index.html direc
 
 Run naifrog-duel.exe from the extracted desktop package. Rust and Node.js are unnecessary for this download.
 
+Windows EXEs require the [Microsoft Visual C++ v14 x64 runtime](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist/). If VCRUNTIME140.dll is missing, install the x64 Redistributable from that official page.
+
 - CPU: both keyboard layouts and any gamepad control P1.
 - Local two-player: keyboard layout/controller 1 controls P1; layout/controller 2 controls P2.
 - Private online: launch with the server URL, then enter its access key and create/join a room.

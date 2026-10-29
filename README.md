@@ -21,6 +21,8 @@ Rust / Bevy 2D 双人格斗原型。三种模式：**单机打人机**、**本�
 
 完整解压后启动 naifrog-duel.exe，**原生 EXE 支持手柄**；不要只复制 EXE，旁边的 assets 是必须的。下载包无需 Rust。浏览器包需要通过 HTTP 服务打开，不能直接双击 HTML；生产联机请使用已经内置网页的服务端包。每个下载包附中英文运行说明、文件/版本清单、许可证和 SHA256 校验。
 
+Windows EXE 需要 [Microsoft Visual C++ v14 x64 运行库](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist/)；若提示缺少 VCRUNTIME140.dll，可从该微软官方页面安装 x64 版本。
+
 ## 版本与自动发布
 
 Cargo.toml 的 package.version 是基础版本，Cargo.lock、CHANGELOG.md 和 v 版本标签必须一致。程序支持 --version；多人协议 PROTOCOL_VERSION 独立管理。
