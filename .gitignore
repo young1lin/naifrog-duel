@@ -1,0 +1,61 @@
+/target/
+/web/pkg/
+/artifacts/
+
+# Secrets and real deployment configuration. Tracked *.example files stay.
+.env
+.env.*
+*.env
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+access-key*.txt
+
+# Python bytecode caches and virtual environments (uv creates them on demand).
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local tooling, logs and browser automation profiles.
+node_modules/
+*.log
+browser-profile/
+
+# Failed handoff draft (contains NUL bytes); not a source of truth.
+/NEXT_AGENT_PROMPT.md
+
+# Local history archives and restored historical art/review work.
+/archive/
+/naifrog-assets/
+/review/
+/CODE_REVIEW_REPORT.md
+
+# Personal agent configuration and historical handoff documents.
+/.agents/
+/.claude/
+/.superpowers/
+/AGENTS.md
+/CLAUDE.md
+/docs/prompts/
+/docs/superpowers/
+
+# Export only declared AI source inputs; unused sketches stay local.
+# Existing tracked history is not removed by ignore rules; use the public export.
+/assets/original/*
+!/assets/original/bg.png
+!/assets/original/fight-1.png
+!/assets/original/fight-3.png
+!/assets/original/fight-4.png
+!/assets/original/fight-5.png
+!/assets/original/fight-6.png
+!/assets/original/fight-8.png
+!/assets/original/fight-boom.png
+!/assets/original/fight.png
+!/assets/original/n-1 (1).png
+!/assets/original/n-1 (2).png
+!/assets/original/n-1 (3).png
+/assets/processed/*.preview.gif
+/assets/processed/naifrog_light_punch.*

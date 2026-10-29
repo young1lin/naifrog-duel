@@ -1,0 +1,3 @@
+# Keep local builds responsive; override explicitly with --jobs when needed.
+[build]
+jobs = 2

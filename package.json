@@ -1,0 +1,14 @@
+{
+  "name": "naifrog-duel-tools",
+  "private": true,
+  "description": "Node tooling for naifrog-duel: the asset pipeline encodes the game textures as lossless WebP with sharp.",
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "fflate": "0.8.3",
+    "harfbuzzjs": "1.6.2",
+    "sharp": "0.35.5",
+    "subset-font": "2.9.0"
+  }
+}

@@ -1,0 +1,23 @@
+name: Bug report
+description: Report a reproducible defect / 报告可复现的问题
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / 环境
+      description: OS, commit/version, desktop or browser, input device, and game mode.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps and expected behavior / 复现与预期
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior / 实际表现
+      description: Redact access keys, cookies and resume tokens. Report security issues privately.
+    validations:
+      required: true

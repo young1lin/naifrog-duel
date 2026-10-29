@@ -1,0 +1,97 @@
+[package]
+name = "naifrog-duel"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "Local two-player naifrog fighting prototype"
+license = "MIT"
+
+[features]
+default = ["game"]
+game = ["dep:bevy", "dep:parley", "dep:sys-locale", "net", "client"]
+# Desktop online play against naifrog-server (plain http://); not built for wasm32.
+client = ["net", "dep:tungstenite"]
+net = ["dep:serde", "dep:serde_json"]
+server = ["net", "dep:axum", "dep:tokio", "dep:futures-util", "dep:getrandom", "dep:sha2", "dep:subtle", "dep:flate2"]
+
+[dependencies]
+# Only what the game draws and reads. The "2d" / "ui" bundles also pull scenes, picking,
+# animation, post-processing, states, UI widgets, clipboard, sysinfo and HDR loading, none
+# of which the game uses; they made up a large share of the WASM download.
+bevy = { version = "=0.19.0", optional = true, default-features = false, features = [
+    "std",
+    "async_executor",
+    "multi_threaded",
+    "bevy_asset",
+    "bevy_log",
+    "bevy_winit",
+    "bevy_gilrs",
+    "webgl2",
+    "x11",
+    "wayland",
+    "bevy_render",
+    "bevy_core_pipeline",
+    "bevy_sprite_render",
+    "bevy_ui_render",
+    "bevy_text",
+    "default_font",
+    "bevy_gizmos_render",
+    # Textures are lossless WebP (scripts/prepare-game-assets.mjs); PNG writes the --smoke screenshot.
+    "webp",
+    "png",
+] }
+# Bevy's text engine, named directly only to give Han text a fallback font (the name font);
+# keep it on the version bevy_text uses, so the types are the same.
+parley = { version = "=0.9.0", default-features = false, features = ["std"], optional = true }
+
+serde = { version = "1", features = ["derive"], optional = true }
+serde_json = { version = "1", optional = true }
+axum = { version = "0.8", default-features = false, features = ["ws", "http1", "json", "tokio"], optional = true }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time", "sync", "signal", "fs", "io-util"], optional = true }
+futures-util = { version = "0.3", features = ["sink"], optional = true }
+getrandom = { version = "0.3", optional = true }
+sha2 = { version = "0.10", optional = true }
+subtle = { version = "2.6", optional = true }
+flate2 = { version = "1", default-features = false, features = ["rust_backend"], optional = true }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+tungstenite = { version = "0.29", default-features = false, features = ["handshake"], optional = true }
+# The desktop language when neither --lang nor NAIFROG_LANG names one; bevy_text already uses it.
+sys-locale = { version = "=0.3.2", optional = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "=0.2.129"
+
+[[bin]]
+name = "naifrog-server"
+path = "src/bin/server.rs"
+required-features = ["server"]
+
+[[bin]]
+name = "naifrog-duel"
+path = "src/main.rs"
+required-features = ["game"]
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2
+
+# Debug builds of icu_provider eprintln! "No segmentation model for complex script" each time
+# Chinese text is laid out (bevy_text has no CJK word dictionary and breaks per character,
+# which is fine for this game). Release builds already drop the message.
+[profile.dev.package.icu_provider]
+debug-assertions = false
+
+[profile.release]
+opt-level = "s"
+lto = "thin"
+
+# The browser download (build-web.ps1 -Release, Dockerfile). Whole-program LTO in a single
+# codegen unit lets the linker drop far more unused Bevy code than thin LTO; it builds
+# slower, so the desktop and server release builds keep the profile above.
+[profile.web-release]
+inherits = "release"
+lto = "fat"
+codegen-units = 1

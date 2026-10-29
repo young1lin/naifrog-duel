@@ -1,0 +1,6 @@
+# Real deployment configuration is private; examples remain tracked.
+.env
+.env.*
+*.env
+**/*.env
+secrets/

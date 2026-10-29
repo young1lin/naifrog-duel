@@ -1,0 +1,866 @@
+{
+  "schema_version": 1,
+  "character": "奶蛙",
+  "cell": [
+    512,
+    512
+  ],
+  "layout": [
+    4,
+    2
+  ],
+  "pivot": {
+    "x": 256,
+    "y": 460
+  },
+  "bevy_anchor": [
+    0,
+    -0.3984375
+  ],
+  "uniform_scale": 0.882186616399623,
+  "animations": {
+    "idle": {
+      "texture": "processed/fighter_idle.webp",
+      "source": "assets/original/fight-1.png",
+      "source_sha256": "dfa777dad5a36f2fc5c7531cd70c6ed37a7f2f7c59071c296882b70e3b053ae1",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 138,
+          "minY": 122,
+          "maxX": 366,
+          "maxY": 460
+        },
+        {
+          "minX": 138,
+          "minY": 145,
+          "maxX": 369,
+          "maxY": 460
+        },
+        {
+          "minX": 138,
+          "minY": 123,
+          "maxX": 366,
+          "maxY": 460
+        },
+        {
+          "minX": 138,
+          "minY": 114,
+          "maxX": 367,
+          "maxY": 460
+        },
+        {
+          "minX": 138,
+          "minY": 121,
+          "maxX": 366,
+          "maxY": 460
+        },
+        {
+          "minX": 138,
+          "minY": 133,
+          "maxX": 369,
+          "maxY": 459
+        },
+        {
+          "minX": 138,
+          "minY": 124,
+          "maxX": 366,
+          "maxY": 460
+        },
+        {
+          "minX": 138,
+          "minY": 121,
+          "maxX": 367,
+          "maxY": 459
+        }
+      ]
+    },
+    "walk": {
+      "texture": "processed/fighter_walk.webp",
+      "source": "assets/original/n-1 (3).png",
+      "source_sha256": "4b7725c600287aa9d6ff9efcf9e3f7385a3a57e11f53a2c2b8481c2ed675d1a0",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 117,
+          "minY": 130,
+          "maxX": 389,
+          "maxY": 459
+        },
+        {
+          "minX": 150,
+          "minY": 135,
+          "maxX": 398,
+          "maxY": 460
+        },
+        {
+          "minX": 160,
+          "minY": 132,
+          "maxX": 381,
+          "maxY": 459
+        },
+        {
+          "minX": 128,
+          "minY": 128,
+          "maxX": 390,
+          "maxY": 460
+        },
+        {
+          "minX": 124,
+          "minY": 140,
+          "maxX": 394,
+          "maxY": 460
+        },
+        {
+          "minX": 157,
+          "minY": 137,
+          "maxX": 392,
+          "maxY": 460
+        },
+        {
+          "minX": 166,
+          "minY": 138,
+          "maxX": 391,
+          "maxY": 460
+        },
+        {
+          "minX": 136,
+          "minY": 137,
+          "maxX": 387,
+          "maxY": 460
+        }
+      ]
+    },
+    "jump": {
+      "texture": "processed/fighter_jump.webp",
+      "source": "assets/original/fight-3.png",
+      "source_sha256": "80dbaad90aeabba53ebe610d6c8fc49352fcff0f8e631806765e4032b2d67132",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 142,
+          "minY": 187,
+          "maxX": 377,
+          "maxY": 460
+        },
+        {
+          "minX": 136,
+          "minY": 213,
+          "maxX": 365,
+          "maxY": 459
+        },
+        {
+          "minX": 149,
+          "minY": 145,
+          "maxX": 365,
+          "maxY": 459
+        },
+        {
+          "minX": 157,
+          "minY": 115,
+          "maxX": 369,
+          "maxY": 459
+        },
+        {
+          "minX": 162,
+          "minY": 199,
+          "maxX": 367,
+          "maxY": 459
+        },
+        {
+          "minX": 171,
+          "minY": 163,
+          "maxX": 386,
+          "maxY": 460
+        },
+        {
+          "minX": 142,
+          "minY": 196,
+          "maxX": 371,
+          "maxY": 460
+        },
+        {
+          "minX": 144,
+          "minY": 136,
+          "maxX": 368,
+          "maxY": 460
+        }
+      ]
+    },
+    "guard": {
+      "texture": "processed/fighter_guard.webp",
+      "source": "assets/original/fight-4.png",
+      "source_sha256": "3be0ce17bc90c53fba01e6d6a65f0970c506637d285b350b21a72ca335755a8e",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 146,
+          "minY": 115,
+          "maxX": 388,
+          "maxY": 459
+        },
+        {
+          "minX": 143,
+          "minY": 115,
+          "maxX": 387,
+          "maxY": 459
+        },
+        {
+          "minX": 141,
+          "minY": 138,
+          "maxX": 389,
+          "maxY": 459
+        },
+        {
+          "minX": 136,
+          "minY": 155,
+          "maxX": 385,
+          "maxY": 459
+        },
+        {
+          "minX": 143,
+          "minY": 148,
+          "maxX": 390,
+          "maxY": 459
+        },
+        {
+          "minX": 140,
+          "minY": 149,
+          "maxX": 387,
+          "maxY": 459
+        },
+        {
+          "minX": 143,
+          "minY": 129,
+          "maxX": 389,
+          "maxY": 459
+        },
+        {
+          "minX": 145,
+          "minY": 125,
+          "maxX": 386,
+          "maxY": 460
+        }
+      ]
+    },
+    "hurt": {
+      "texture": "processed/fighter_hurt.webp",
+      "source": "assets/original/fight-5.png",
+      "source_sha256": "084fcefe3ad7f07957e7866c56f5f8eeb95a451bdde9c7f3c0cddd133e1cde39",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 135,
+          "minY": 124,
+          "maxX": 371,
+          "maxY": 460
+        },
+        {
+          "minX": 139,
+          "minY": 127,
+          "maxX": 369,
+          "maxY": 460
+        },
+        {
+          "minX": 129,
+          "minY": 142,
+          "maxX": 381,
+          "maxY": 460
+        },
+        {
+          "minX": 138,
+          "minY": 141,
+          "maxX": 401,
+          "maxY": 459
+        },
+        {
+          "minX": 149,
+          "minY": 123,
+          "maxX": 390,
+          "maxY": 459
+        },
+        {
+          "minX": 141,
+          "minY": 122,
+          "maxX": 371,
+          "maxY": 460
+        },
+        {
+          "minX": 129,
+          "minY": 124,
+          "maxX": 368,
+          "maxY": 459
+        },
+        {
+          "minX": 130,
+          "minY": 124,
+          "maxX": 369,
+          "maxY": 460
+        }
+      ]
+    },
+    "knockdown": {
+      "texture": "processed/fighter_knockdown.webp",
+      "source": "assets/original/fight-6.png",
+      "source_sha256": "e32eda667aa551f8442e2b6cc073bb841c81f8c7cab99aac44064ade4f23885d",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 144,
+          "minY": 126,
+          "maxX": 379,
+          "maxY": 460
+        },
+        {
+          "minX": 130,
+          "minY": 140,
+          "maxX": 408,
+          "maxY": 459
+        },
+        {
+          "minX": 94,
+          "minY": 177,
+          "maxX": 410,
+          "maxY": 460
+        },
+        {
+          "minX": 63,
+          "minY": 244,
+          "maxX": 425,
+          "maxY": 459
+        },
+        {
+          "minX": 81,
+          "minY": 260,
+          "maxX": 427,
+          "maxY": 460
+        },
+        {
+          "minX": 84,
+          "minY": 274,
+          "maxX": 432,
+          "maxY": 459
+        },
+        {
+          "minX": 76,
+          "minY": 289,
+          "maxX": 450,
+          "maxY": 460
+        },
+        {
+          "minX": 82,
+          "minY": 307,
+          "maxX": 436,
+          "maxY": 460
+        }
+      ]
+    },
+    "getup": {
+      "texture": "processed/fighter_getup.webp",
+      "source": "assets/original/n-1 (2).png",
+      "source_sha256": "deaf5bddf47e12fbbe3bd50e140f16fcb771d3ff109d56f9ff68fc1b79e7d010",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 98,
+          "minY": 291,
+          "maxX": 476,
+          "maxY": 460
+        },
+        {
+          "minX": 112,
+          "minY": 254,
+          "maxX": 449,
+          "maxY": 460
+        },
+        {
+          "minX": 99,
+          "minY": 205,
+          "maxX": 398,
+          "maxY": 460
+        },
+        {
+          "minX": 115,
+          "minY": 202,
+          "maxX": 402,
+          "maxY": 460
+        },
+        {
+          "minX": 124,
+          "minY": 194,
+          "maxX": 414,
+          "maxY": 459
+        },
+        {
+          "minX": 116,
+          "minY": 177,
+          "maxX": 409,
+          "maxY": 459
+        },
+        {
+          "minX": 120,
+          "minY": 129,
+          "maxX": 389,
+          "maxY": 460
+        },
+        {
+          "minX": 123,
+          "minY": 132,
+          "maxX": 368,
+          "maxY": 460
+        }
+      ]
+    },
+    "light": {
+      "texture": "processed/fighter_light.webp",
+      "source": "assets/original/fight.png",
+      "source_sha256": "fa02bd739267a2632e2eee3ba4e3e0453cfaca696912b5ef81ebe6321e9ff0a8",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        4,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 119,
+          "minY": 133,
+          "maxX": 390,
+          "maxY": 460
+        },
+        {
+          "minX": 121,
+          "minY": 138,
+          "maxX": 390,
+          "maxY": 460
+        },
+        {
+          "minX": 114,
+          "minY": 139,
+          "maxX": 391,
+          "maxY": 460
+        },
+        {
+          "minX": 91,
+          "minY": 140,
+          "maxX": 417,
+          "maxY": 460
+        },
+        {
+          "minX": 91,
+          "minY": 140,
+          "maxX": 417,
+          "maxY": 460
+        },
+        {
+          "minX": 123,
+          "minY": 141,
+          "maxX": 401,
+          "maxY": 460
+        },
+        {
+          "minX": 121,
+          "minY": 146,
+          "maxX": 393,
+          "maxY": 459
+        },
+        {
+          "minX": 120,
+          "minY": 146,
+          "maxX": 388,
+          "maxY": 459
+        }
+      ]
+    },
+    "heavy": {
+      "texture": "processed/fighter_heavy.webp",
+      "source": "assets/original/n-1 (1).png",
+      "source_sha256": "334236338ff38804bfec6b3515686f9a49c5e56ed71c72754c3583c7ee4c0aba",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 119,
+          "minY": 132,
+          "maxX": 378,
+          "maxY": 459
+        },
+        {
+          "minX": 119,
+          "minY": 136,
+          "maxX": 379,
+          "maxY": 460
+        },
+        {
+          "minX": 104,
+          "minY": 149,
+          "maxX": 387,
+          "maxY": 459
+        },
+        {
+          "minX": 95,
+          "minY": 151,
+          "maxX": 423,
+          "maxY": 460
+        },
+        {
+          "minX": 88,
+          "minY": 151,
+          "maxX": 487,
+          "maxY": 460
+        },
+        {
+          "minX": 121,
+          "minY": 138,
+          "maxX": 404,
+          "maxY": 459
+        },
+        {
+          "minX": 115,
+          "minY": 143,
+          "maxX": 390,
+          "maxY": 459
+        },
+        {
+          "minX": 117,
+          "minY": 142,
+          "maxX": 379,
+          "maxY": 459
+        }
+      ]
+    },
+    "dash": {
+      "texture": "processed/fighter_dash.webp",
+      "source": "assets/original/fight-8.png",
+      "source_sha256": "cb20bbe91c0b0b7199e5c94f2b25db2c2ccf0794ff4859321ad516a95e93b5f6",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 131,
+          "minY": 200,
+          "maxX": 375,
+          "maxY": 460
+        },
+        {
+          "minX": 126,
+          "minY": 225,
+          "maxX": 383,
+          "maxY": 460
+        },
+        {
+          "minX": 84,
+          "minY": 168,
+          "maxX": 401,
+          "maxY": 460
+        },
+        {
+          "minX": 74,
+          "minY": 173,
+          "maxX": 422,
+          "maxY": 459
+        },
+        {
+          "minX": 106,
+          "minY": 174,
+          "maxX": 441,
+          "maxY": 459
+        },
+        {
+          "minX": 124,
+          "minY": 168,
+          "maxX": 458,
+          "maxY": 460
+        },
+        {
+          "minX": 141,
+          "minY": 152,
+          "maxX": 382,
+          "maxY": 460
+        },
+        {
+          "minX": 157,
+          "minY": 145,
+          "maxX": 392,
+          "maxY": 459
+        }
+      ]
+    },
+    "shot": {
+      "texture": "processed/fighter_shot.webp",
+      "source": "assets/original/fight.png",
+      "source_sha256": "fa02bd739267a2632e2eee3ba4e3e0453cfaca696912b5ef81ebe6321e9ff0a8",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        4,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 119,
+          "minY": 133,
+          "maxX": 390,
+          "maxY": 460
+        },
+        {
+          "minX": 121,
+          "minY": 138,
+          "maxX": 390,
+          "maxY": 460
+        },
+        {
+          "minX": 114,
+          "minY": 139,
+          "maxX": 391,
+          "maxY": 460
+        },
+        {
+          "minX": 91,
+          "minY": 140,
+          "maxX": 417,
+          "maxY": 460
+        },
+        {
+          "minX": 91,
+          "minY": 140,
+          "maxX": 417,
+          "maxY": 460
+        },
+        {
+          "minX": 123,
+          "minY": 141,
+          "maxX": 401,
+          "maxY": 460
+        },
+        {
+          "minX": 121,
+          "minY": 146,
+          "maxX": 393,
+          "maxY": 459
+        },
+        {
+          "minX": 120,
+          "minY": 146,
+          "maxX": 388,
+          "maxY": 459
+        }
+      ],
+      "placeholder": true,
+      "placeholder_of": "light"
+    },
+    "air": {
+      "texture": "processed/fighter_air.webp",
+      "source": "assets/original/fight-8.png",
+      "source_sha256": "cb20bbe91c0b0b7199e5c94f2b25db2c2ccf0794ff4859321ad516a95e93b5f6",
+      "source_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "bounds": [
+        {
+          "minX": 131,
+          "minY": 200,
+          "maxX": 375,
+          "maxY": 460
+        },
+        {
+          "minX": 126,
+          "minY": 225,
+          "maxX": 383,
+          "maxY": 460
+        },
+        {
+          "minX": 84,
+          "minY": 168,
+          "maxX": 401,
+          "maxY": 460
+        },
+        {
+          "minX": 74,
+          "minY": 173,
+          "maxX": 422,
+          "maxY": 459
+        },
+        {
+          "minX": 106,
+          "minY": 174,
+          "maxX": 441,
+          "maxY": 459
+        },
+        {
+          "minX": 124,
+          "minY": 168,
+          "maxX": 458,
+          "maxY": 460
+        },
+        {
+          "minX": 141,
+          "minY": 152,
+          "maxX": 382,
+          "maxY": 460
+        },
+        {
+          "minX": 157,
+          "minY": 145,
+          "maxX": 392,
+          "maxY": 459
+        }
+      ],
+      "placeholder": true,
+      "placeholder_of": "dash"
+    }
+  },
+  "notes": [
+    "All original files are preserved and SHA256 checked.",
+    "Character components are isolated before repacking, including poses that cross the original nominal grid.",
+    "Common scale and per-cell horizontal root; grounded feet aligned to the baseline.",
+    "Light attack holds original frame 4 instead of the hand-swapping frame 5.",
+    "Walk is an MVP gait, not a polished motion-captured alternating cycle.",
+    "Gameplay durations are defined in src/combat.rs; GIFs are only previews.",
+    "Textures are lossless WebP; the background keeps the original pixels."
+  ],
+  "effect": {
+    "texture": "processed/fx_hit.webp",
+    "source": "assets/original/fight-boom.png",
+    "source_sha256": "da207eeb5291b784a10fcdd157f963479584d879f58c86d761f55b8f83c209d4",
+    "pivot": [
+      256,
+      256
+    ],
+    "alpha_threshold": 8
+  },
+  "shot": {
+    "texture": "processed/fx_shot.webp",
+    "generated": "scripts/prepare-game-assets.mjs",
+    "frames": {
+      "fly": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "burst": [
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "body_diameter_px": 270
+  },
+  "background": {
+    "texture": "processed/stage_garden.webp",
+    "source": "assets/original/bg.png",
+    "source_sha256": "f9cf78dee7594748b2c7d4a5af5f9db187b1c6b7101f07e47246c53dd7c8cd6b"
+  },
+  "shadow": {
+    "texture": "processed/shadow.webp",
+    "generated": "scripts/prepare-game-assets.mjs",
+    "size": [
+      160,
+      48
+    ]
+  },
+  "portrait": {
+    "texture": "processed/portrait.webp",
+    "source": "assets/original/fight-1.png",
+    "source_sha256": "dfa777dad5a36f2fc5c7531cd70c6ed37a7f2f7c59071c296882b70e3b053ae1",
+    "frame": 1,
+    "size": 128,
+    "generated": "scripts/prepare-game-assets.mjs"
+  }
+}

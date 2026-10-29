@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "font": "processed/name_font.otf",
+  "sha256": "b1a21f5f70e29e369b8afc060477c0fb8ed754ed8b6f755db588c900a28bf8d9",
+  "bytes": 1827632,
+  "source": "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/Sans/SubsetOTF/SC/NotoSansSC-Medium.otf",
+  "source_sha256": "7633f5a016d4dd95e685a69633d818aabc4644c4b08e26bd35b1b30c45ed5dda",
+  "license": "SIL Open Font License 1.1",
+  "license_file": "processed/name_font-OFL.txt",
+  "license_source": "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/LICENSE",
+  "characters": {
+    "ascii": "U+0020..U+007E",
+    "han": 8105,
+    "list": "src/name_han.txt",
+    "han_sha256": "17719705d5498f3f79616a1628bcf5c3fe67e0a177d43ef1f332f283b58c625d",
+    "standard": "通用规范汉字表 (2013), Unihan kTGH",
+    "source": "https://www.unicode.org/Public/16.0.0/ucd/Unihan.zip",
+    "source_sha256": "b8f000df69de7828d21326a2ffea462b04bc7560022989f7cc704f10521ef3e0",
+    "extra": "U+00B7 U+00D7 U+2013..U+2014 U+2018..U+2019 U+201C..U+201D U+2026 U+2190..U+2193 U+3000..U+303F U+FF01..U+FF5E",
+    "extra_count": 171
+  },
+  "generated": "scripts/prepare-name-font.mjs",
+  "harfbuzz": "14.5.0"
+}

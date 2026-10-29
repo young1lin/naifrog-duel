@@ -1,0 +1,26 @@
+{
+    email {$ACME_EMAIL}
+}
+
+# Standard HTTPS on 443; NAIFROG_DOMAIN is a bare lower-case DNS name.
+{$NAIFROG_DOMAIN} {
+    encode gzip
+    # No Cache-Control here: naifrog-server sets it on every response (API answers are
+    # never stored, page files are revalidated, game files are `private` and versioned).
+    # Overriding it would make every visit download the whole game again.
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        -Server
+    }
+
+    # Proxy ALL paths, including /, protected assets, /api/auth and /api/ws.
+    # No file_server or CDN: neither authentication nor budgets may be bypassed.
+    # Caddy handles WebSocket upgrades automatically. Do not rewrite Origin.
+    reverse_proxy {$NAIFROG_UPSTREAM:server:18080} {
+        # Overwrite, never append: only the actual connected peer is authoritative.
+        # Do NOT add trusted_proxies or use a client-supplied X-Forwarded-For.
+        header_up X-Real-IP {remote_host}
+        header_up -X-Forwarded-For
+        header_up -Forwarded
+    }
+}

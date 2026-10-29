@@ -1,0 +1,44 @@
+name: naifrog
+
+# No domain: the server alone on the host's public IPv4 and one port, plain HTTP, no Caddy.
+# The access key, session cookie and game traffic cross the network UNENCRYPTED, and some
+# browsers offer no gamepad API on http:// pages. Read DEPLOY.md "没有域名" first.
+# Use either this file or compose.yml, never both: they share the project name so that
+# only one server replica can exist.
+services:
+  server:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: naifrog-duel:local
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 15s
+    environment:
+      NAIFROG_BIND: "0.0.0.0:18080"
+      # Exactly what the browser's address bar shows: http://<public IPv4>:<port>.
+      NAIFROG_ORIGIN: "${NAIFROG_PUBLIC_ORIGIN:?Set http://<public IPv4>:<port> in deploy/.env}"
+      NAIFROG_ACCESS_KEY: "${NAIFROG_ACCESS_KEY:?Generate a random shared key in deploy/.env}"
+      NAIFROG_ASSET_ROOT: "/app"
+      NAIFROG_MAX_ROOMS: "${NAIFROG_MAX_ROOMS:-16}"
+      NAIFROG_EGRESS_MB_PER_HOUR: "${NAIFROG_EGRESS_MB_PER_HOUR:-512}"
+      # No proxy in front: every client is counted by its own connecting address.
+      NAIFROG_ALLOW_INSECURE_PUBLIC_HTTP: "1"
+    ports:
+      # Must match the port in NAIFROG_PUBLIC_ORIGIN.
+      - "${NAIFROG_PUBLIC_PORT:-18080}:18080/tcp"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777,noexec,nosuid,nodev
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 64
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

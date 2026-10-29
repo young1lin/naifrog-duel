@@ -1,0 +1,92 @@
+name: naifrog
+
+services:
+  server:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: naifrog-duel:local
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 15s
+    environment:
+      NAIFROG_BIND: "0.0.0.0:18080"
+      # Standard HTTPS: default port 443 is omitted from the canonical Origin.
+      NAIFROG_ORIGIN: "https://${NAIFROG_DOMAIN:?Set a real lower-case DNS name in deploy/.env}"
+      NAIFROG_ACCESS_KEY: "${NAIFROG_ACCESS_KEY:?Generate a random shared key in deploy/.env}"
+      NAIFROG_ASSET_ROOT: "/app"
+      NAIFROG_MAX_ROOMS: "${NAIFROG_MAX_ROOMS:-16}"
+      NAIFROG_EGRESS_MB_PER_HOUR: "${NAIFROG_EGRESS_MB_PER_HOUR:-512}"
+      NAIFROG_PROXY_IPS: "172.28.0.2"
+      NAIFROG_ALLOW_INSECURE_PUBLIC_HTTP: "0"
+    # Deliberately no ports mapping; only Caddy can reach this bridge backend.
+    networks:
+      game:
+        ipv4_address: 172.28.0.3
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777,noexec,nosuid,nodev
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 64
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2.10.2-alpine
+    restart: unless-stopped
+    depends_on:
+      server:
+        condition: service_started
+    environment:
+      NAIFROG_DOMAIN: "${NAIFROG_DOMAIN:?Set a real lower-case DNS name in deploy/.env}"
+      ACME_EMAIL: "${ACME_EMAIL:?Set a real certificate contact email in deploy/.env}"
+      NAIFROG_UPSTREAM: "server:18080"
+    # No backend port or admin API is published. UDP 443 is only HTTP/3.
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      game:
+        ipv4_address: 172.28.0.2
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777,noexec,nosuid,nodev
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 64
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  game:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/29
+
+volumes:
+  # Keep these volumes across restarts: they contain TLS keys/certificates.
+  caddy_data:
+  caddy_config:

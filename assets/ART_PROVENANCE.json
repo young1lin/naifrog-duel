@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "license": "MIT",
+  "attribution": "naifrog-duel contributors",
+  "source_declaration": {
+    "type": "maintainer-statement",
+    "confirmed_on": "2026-10-26",
+    "generator": "ChatGPT",
+    "model_label": "ChatGPT-Image2.5",
+    "model_label_basis": "maintainer-reported",
+    "statement": "维护者说明这些原图由其使用 ChatGPT-Image2.5 生成，原始图集由助手生成；维护者选择项目以 MIT 开源。具体模型名称按维护者提供的标签记录，未从原始生成日志独立核验。"
+  },
+  "processing": {
+    "tool": "scripts/prepare-game-assets.mjs",
+    "steps": [
+      "extract and map original frames",
+      "align root, scale and baseline",
+      "crop portrait and prepare effects",
+      "encode runtime textures as lossless WebP"
+    ],
+    "original_bytes_preserved": true
+  },
+  "rights_note": "项目按 MIT 提供维护者可许可的代码和 AI 生成美术相关权利；此声明不替第三方角色设计、商标或参考输入授予权利，也不是独立的非侵权审查结论。",
+  "terms_reference": {
+    "url": "https://openai.com/policies/terms-of-use/",
+    "checked_on": "2026-10-26"
+  },
+  "sources": [
+    {
+      "path": "assets/original/bg.png",
+      "sha256": "f9cf78dee7594748b2c7d4a5af5f9db187b1c6b7101f07e47246c53dd7c8cd6b",
+      "bytes": 2185644
+    },
+    {
+      "path": "assets/original/fight-1.png",
+      "sha256": "dfa777dad5a36f2fc5c7531cd70c6ed37a7f2f7c59071c296882b70e3b053ae1",
+      "bytes": 911840
+    },
+    {
+      "path": "assets/original/fight-3.png",
+      "sha256": "80dbaad90aeabba53ebe610d6c8fc49352fcff0f8e631806765e4032b2d67132",
+      "bytes": 817853
+    },
+    {
+      "path": "assets/original/fight-4.png",
+      "sha256": "3be0ce17bc90c53fba01e6d6a65f0970c506637d285b350b21a72ca335755a8e",
+      "bytes": 927534
+    },
+    {
+      "path": "assets/original/fight-5.png",
+      "sha256": "084fcefe3ad7f07957e7866c56f5f8eeb95a451bdde9c7f3c0cddd133e1cde39",
+      "bytes": 964318
+    },
+    {
+      "path": "assets/original/fight-6.png",
+      "sha256": "e32eda667aa551f8442e2b6cc073bb841c81f8c7cab99aac44064ade4f23885d",
+      "bytes": 811948
+    },
+    {
+      "path": "assets/original/fight-8.png",
+      "sha256": "cb20bbe91c0b0b7199e5c94f2b25db2c2ccf0794ff4859321ad516a95e93b5f6",
+      "bytes": 945104
+    },
+    {
+      "path": "assets/original/fight-boom.png",
+      "sha256": "da207eeb5291b784a10fcdd157f963479584d879f58c86d761f55b8f83c209d4",
+      "bytes": 1491579
+    },
+    {
+      "path": "assets/original/fight.png",
+      "sha256": "fa02bd739267a2632e2eee3ba4e3e0453cfaca696912b5ef81ebe6321e9ff0a8",
+      "bytes": 952565
+    },
+    {
+      "path": "assets/original/n-1 (1).png",
+      "sha256": "334236338ff38804bfec6b3515686f9a49c5e56ed71c72754c3583c7ee4c0aba",
+      "bytes": 973617
+    },
+    {
+      "path": "assets/original/n-1 (2).png",
+      "sha256": "deaf5bddf47e12fbbe3bd50e140f16fcb771d3ff109d56f9ff68fc1b79e7d010",
+      "bytes": 860355
+    },
+    {
+      "path": "assets/original/n-1 (3).png",
+      "sha256": "4b7725c600287aa9d6ff9efcf9e3f7385a3a57e11f53a2c2b8481c2ed675d1a0",
+      "bytes": 912305
+    }
+  ],
+  "derived_files": [
+    {
+      "path": "assets/processed/fighter_air.webp",
+      "source": "assets/original/fight-8.png",
+      "source_sha256": "cb20bbe91c0b0b7199e5c94f2b25db2c2ccf0794ff4859321ad516a95e93b5f6"
+    },
+    {
+      "path": "assets/processed/fighter_dash.webp",
+      "source": "assets/original/fight-8.png",
+      "source_sha256": "cb20bbe91c0b0b7199e5c94f2b25db2c2ccf0794ff4859321ad516a95e93b5f6"
+    },
+    {
+      "path": "assets/processed/fighter_getup.webp",
+      "source": "assets/original/n-1 (2).png",
+      "source_sha256": "deaf5bddf47e12fbbe3bd50e140f16fcb771d3ff109d56f9ff68fc1b79e7d010"
+    },
+    {
+      "path": "assets/processed/fighter_guard.webp",
+      "source": "assets/original/fight-4.png",
+      "source_sha256": "3be0ce17bc90c53fba01e6d6a65f0970c506637d285b350b21a72ca335755a8e"
+    },
+    {
+      "path": "assets/processed/fighter_heavy.webp",
+      "source": "assets/original/n-1 (1).png",
+      "source_sha256": "334236338ff38804bfec6b3515686f9a49c5e56ed71c72754c3583c7ee4c0aba"
+    },
+    {
+      "path": "assets/processed/fighter_hurt.webp",
+      "source": "assets/original/fight-5.png",
+      "source_sha256": "084fcefe3ad7f07957e7866c56f5f8eeb95a451bdde9c7f3c0cddd133e1cde39"
+    },
+    {
+      "path": "assets/processed/fighter_idle.webp",
+      "source": "assets/original/fight-1.png",
+      "source_sha256": "dfa777dad5a36f2fc5c7531cd70c6ed37a7f2f7c59071c296882b70e3b053ae1"
+    },
+    {
+      "path": "assets/processed/fighter_jump.webp",
+      "source": "assets/original/fight-3.png",
+      "source_sha256": "80dbaad90aeabba53ebe610d6c8fc49352fcff0f8e631806765e4032b2d67132"
+    },
+    {
+      "path": "assets/processed/fighter_knockdown.webp",
+      "source": "assets/original/fight-6.png",
+      "source_sha256": "e32eda667aa551f8442e2b6cc073bb841c81f8c7cab99aac44064ade4f23885d"
+    },
+    {
+      "path": "assets/processed/fighter_light.webp",
+      "source": "assets/original/fight.png",
+      "source_sha256": "fa02bd739267a2632e2eee3ba4e3e0453cfaca696912b5ef81ebe6321e9ff0a8"
+    },
+    {
+      "path": "assets/processed/fighter_shot.webp",
+      "source": "assets/original/fight.png",
+      "source_sha256": "fa02bd739267a2632e2eee3ba4e3e0453cfaca696912b5ef81ebe6321e9ff0a8"
+    },
+    {
+      "path": "assets/processed/fighter_walk.webp",
+      "source": "assets/original/n-1 (3).png",
+      "source_sha256": "4b7725c600287aa9d6ff9efcf9e3f7385a3a57e11f53a2c2b8481c2ed675d1a0"
+    },
+    {
+      "path": "assets/processed/fx_hit.webp",
+      "source": "assets/original/fight-boom.png",
+      "source_sha256": "da207eeb5291b784a10fcdd157f963479584d879f58c86d761f55b8f83c209d4"
+    },
+    {
+      "path": "assets/processed/portrait.webp",
+      "source": "assets/original/fight-1.png",
+      "source_sha256": "dfa777dad5a36f2fc5c7531cd70c6ed37a7f2f7c59071c296882b70e3b053ae1"
+    },
+    {
+      "path": "assets/processed/stage_garden.webp",
+      "source": "assets/original/bg.png",
+      "source_sha256": "f9cf78dee7594748b2c7d4a5af5f9db187b1c6b7101f07e47246c53dd7c8cd6b"
+    }
+  ]
+}
